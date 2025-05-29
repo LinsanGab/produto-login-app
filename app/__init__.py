@@ -3,7 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_migrate import Migrate
 import os
-basedir = os.path.abspath(os.path.dirname(__file__))
 
 db = SQLAlchemy()
 login_manager = LoginManager()
@@ -11,8 +10,10 @@ migrate = Migrate()
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'sua_chave_secreta_aqui'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'app.db')
+    # Use variável de ambiente para SECRET_KEY
+    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev')
+    # Banco de dados em /tmp para Render.com
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/app.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.init_app(app)
@@ -28,6 +29,10 @@ def create_app():
 
     from app.routes import bp
     app.register_blueprint(bp)
+
+    # Cria as tabelas no primeiro deploy (apenas para testes, remova em produção)
+    with app.app_context():
+        db.create_all()
 
     return app
 
