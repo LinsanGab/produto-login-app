@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2 style="margin-bottom: 2rem;">Cadastrar Produto</h2>
+
+  <form method="POST" style="max-width: 420px;">
+    <label for="name">Nome do Produto:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="description">Descrição:</label>
+    <textarea id="description" name="description" rows="4" required style="resize: vertical; border-radius: 8px; border: 1px solid var(--purple-dark); background: #23232b; color: var(--white); font-size: 1rem; padding: 10px 14px; transition: border 0.2s;"></textarea>
+
+    <button type="submit" style="margin-top: 18px;">Salvar</button>
+  </form>
+  <br>
+  <a href="{{ url_for('main.dashboard') }}">Voltar</a>
+{% endblock %}

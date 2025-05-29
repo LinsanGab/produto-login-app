@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Meu App{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    :root {
+      --black: #18181b;
+      --purple: #7c3aed;
+      --purple-dark: #5b21b6;
+      --red: #e57373;
+      --red-dark: #b71c1c;
+      --white: #f8f8ff;
+      --gray: #23232b;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, var(--black) 60%, var(--purple) 100%);
+      min-height: 100vh;
+      color: var(--white);
+    }
+
+    header {
+      background: var(--gray);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 32px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: var(--purple);
+      letter-spacing: 2px;
+      text-shadow: 1px 1px 8px var(--black);
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .user-info p {
+      margin: 0;
+      font-weight: 500;
+      color: var(--white);
+      background: var(--purple-dark);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 1rem;
+      letter-spacing: 1px;
+    }
+
+    .logout-btn {
+      background: var(--red);
+      color: var(--white);
+      border: none;
+      border-radius: 20px;
+      padding: 8px 22px;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      box-shadow: 0 2px 8px rgba(124,58,237,0.08);
+    }
+    .logout-btn:hover {
+      background: var(--red-dark);
+    }
+
+    main {
+      max-width: 900px;
+      margin: 40px auto 0 auto;
+      background: rgba(24,24,27,0.97);
+      border-radius: 18px;
+      box-shadow: 0 4px 32px rgba(124,58,237,0.10);
+      padding: 36px 28px 32px 28px;
+      min-height: 70vh;
+    }
+
+    h1, h2, h3, h4 {
+      color: var(--purple);
+      margin-top: 0;
+      letter-spacing: 1px;
+      text-shadow: 0 1px 8px var(--black);
+    }
+
+    a {
+      color: var(--purple);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    a:hover {
+      color: var(--red);
+      text-decoration: underline;
+    }
+
+    /* Flash messages */
+    .flash-message {
+      padding: 12px 18px;
+      margin-bottom: 22px;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 1.05rem;
+      box-shadow: 0 2px 8px rgba(124,58,237,0.08);
+    }
+    .flash-message.success {
+      background: #2e2e38;
+      color: #a7ffeb;
+      border-left: 6px solid #7c3aed;
+    }
+    .flash-message.danger {
+      background: #2e2e38;
+      color: #ffbdbd;
+      border-left: 6px solid #e57373;
+    }
+
+    /* Mensagem vazia */
+    .empty-message {
+      color: #bdbdbd;
+      background: #23232b;
+      border-left: 4px solid #7c3aed;
+      padding: 10px 18px;
+      border-radius: 8px;
+      margin-top: 12px;
+      font-size: 1.05rem;
+    }
+
+    /* Formulários */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    label {
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 2px;
+    }
+    input[type="text"], input[type="password"], input[type="email"] {
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--purple-dark);
+      background: #23232b;
+      color: var(--white);
+      font-size: 1rem;
+      transition: border 0.2s;
+    }
+    input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus {
+      border: 1.5px solid var(--purple);
+      outline: none;
+    }
+    button, .btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      background: var(--purple);
+      color: var(--white);
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 8px;
+      box-shadow: 0 2px 8px rgba(124,58,237,0.08);
+    }
+    button:hover, .btn:hover {
+      background: var(--red);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 24px;
+      background: #23232b;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(124,58,237,0.08);
+    }
+    th, td {
+      padding: 12px 10px;
+      text-align: left;
+      color: var(--white);
+    }
+    th {
+      background: var(--purple-dark);
+      color: var(--white);
+      font-weight: bold;
+      border-bottom: 2px solid var(--purple);
+    }
+    tr:nth-child(even) {
+      background: #1a1a1f;
+    }
+    tr:hover {
+      background: var(--purple-dark);
+      transition: background 0.2s;
+    }
+
+    @media (max-width: 700px) {
+      main {
+        padding: 18px 4vw;
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 14px 10px;
+      }
+      .logo {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <span class="logo">MeuApp</span>
+    {% if current_user.is_authenticated %}
+      <div class="user-info">
+        <p>Usuário: {{ current_user.username }}</p>
+        <form action="{{ url_for('main.logout') }}" method="get" style="margin:0;">
+          <button type="submit" class="logout-btn">Sair</button>
+        </form>
+      </div>
+    {% endif %}
+  </header>
+
+  <main>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash-message {{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}
+    {% endblock %}
+  </main>
+</body>
+</html>

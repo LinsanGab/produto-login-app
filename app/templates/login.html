@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="max-width: 400px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px;">
+    <h2>Login</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+        <div class="flash-message {{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+        <div style="margin-bottom: 10px;">
+            <label for="username">Usuário</label><br>
+            <input type="text" name="username" id="username" required>
+        </div>
+        <div style="margin-bottom: 10px;">
+            <label for="password">Senha</label><br>
+            <input type="password" name="password" id="password" required>
+        </div>
+        <button type="submit">Entrar</button>
+    </form>
+
+    <p style="margin-top: 15px;">Não tem conta? <a href="{{ url_for('main.register') }}">Registre-se aqui</a></p>
+</div>
+{% endblock %}

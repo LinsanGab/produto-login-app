@@ -1,0 +1,40 @@
+# Ambientes virtuais
+venv/
+env/
+.venv/
+.env/
+
+# Arquivos do Python
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+
+# Logs
+*.log
+
+# Banco de dados SQLite 
+*.sqlite3
+*.db
+
+# Configurações e variáveis locais
+instance/
+*.env
+
+# IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# PyInstaller
+dist/
+build/
+*.spec
+
+# Arquivos de migração 
+migrations/
+
+# Sistema
+.DS_Store
+Thumbs.db

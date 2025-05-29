@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 style="color: var(--purple); margin-bottom: 2.2rem;">Bem-vindo, {{ current_user.username }}!</h1>
+
+  <!-- Link para cadastrar produto -->
+  <p style="margin-bottom: 2.2rem;">
+    <a href="{{ url_for('main.add_product') }}" class="btn" style="background: var(--purple); color: var(--white);">Cadastrar Novo Produto</a>
+  </p>
+
+  <!-- Lista de produtos do usuário -->
+  <h3 style="margin-top:2.2rem; margin-bottom:1.2rem; color: var(--purple);">Seus Produtos:</h3>
+  {% if current_user.products %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Descrição</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for product in current_user.products %}
+          <tr>
+            <td>{{ product.name }}</td>
+            <td>{{ product.description }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="empty-message">Você ainda não cadastrou nenhum produto.</p>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,45 @@
+<h1>Painel do Administrador</h1>
+
+<h2>Usuários</h2>
+<table border="1">
+  <tr>
+    <th>Usuário</th>
+    <th>Produtos</th>
+    <th>Ações</th>
+  </tr>
+  {% for usuario in usuarios %}
+  <tr>
+    <td>{{ usuario.username }}</td>
+    <td>{{ usuario.products|length }}</td>
+    <td>
+      {% if not usuario.is_admin %}
+      <form method="POST" action="{{ url_for('main.excluir_usuario', user_id=usuario.id) }}">
+        <button type="submit" onclick="return confirm('Tem certeza que deseja excluir este usuário e seus produtos?')">Excluir</button>
+      </form>
+      {% else %}
+      <em>Administrador</em>
+      {% endif %}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+<h2>Produtos</h2>
+<table border="1">
+  <tr>
+    <th>Produto</th>
+    <th>Cadastrado por</th>
+    <th>Ações</th>
+  </tr>
+  {% for produto in produtos %}
+  <tr>
+    <td>{{ produto.name }}</td>
+    <td>{{ produto.owner.username }}</td>
+    <td>
+      <form method="POST" action="{{ url_for('main.excluir_produto', produto_id=produto.id) }}">
+        <button type="submit" onclick="return confirm('Excluir produto?')">Excluir</button>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
